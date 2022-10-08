@@ -1,3 +1,6 @@
+# Source iterm2 integration script
+source ~/.iterm2_shell_integration.zsh
+
 # Functions
 source ~/.shell/functions.sh
 
