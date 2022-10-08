@@ -105,6 +105,8 @@
 
 [user]
 	useConfigOnly = true
+	email = grimreaperling@gmail.com
+	name = Herbert Yao
 
 [http]
 	cookieFile = ~/.gitcookies
