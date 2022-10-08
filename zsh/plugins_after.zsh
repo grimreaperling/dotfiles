@@ -1,37 +1,96 @@
-# External plugins (initialized after)
+# Plugin source helper
+_source_plugin() {
+	local plugin_name="$1"
+	for basedir in /usr/share/zsh/plugins /usr/share
+	do
+		plugin="$basedir/$plugin_name/$plugin_name.zsh"
+		[ -f "$plugin" ] && source "$plugin" && return 0
+	done
+	echo "\033[33m[ ! ]\033[0m ZSH ${plugin_name#zsh-} not installed"
+	return 1
+}
 
-# Syntax highlighting
+# ZSH Autosuggestions
+_source_plugin zsh-autosuggestions && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Manually load the F-Sy-H
+source /usr/share/zsh/plugins/F-Sy-H/F-Sy-H.plugin.zsh
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+# POWERLEVEL
+if ! [[ $(tty) = /dev/tty* ]]
+then
+	if source /usr/share/zsh/plugins/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme 2> /dev/null
+	then
+		# General config
+		POWERLEVEL9K_MODE='nerdfont-complete'
+		POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
 
-if [[ "$(tput colors)" == "256" ]]; then
-    ZSH_HIGHLIGHT_STYLES[default]=none
-    ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=160
-    ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=037,bold #,standout
-    ZSH_HIGHLIGHT_STYLES[alias]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[builtin]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[function]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[command]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[precommand]=fg=064,underline
-    ZSH_HIGHLIGHT_STYLES[commandseparator]=none
-    ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=037
-    ZSH_HIGHLIGHT_STYLES[path]=fg=166,underline
-    ZSH_HIGHLIGHT_STYLES[globbing]=fg=033
-    ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,underline
-    ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=125,bold
-    ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=125,bold
-    ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
-    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[assign]=fg=037
+		# Prompts
+		if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+		  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh context dir virtualenv vcs)
+		else
+		  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user dir virtualenv vcs)
+		fi
+		POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator battery custom_now_playing time)
+		POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+		POWERLEVEL9K_SHORTEN_DELIMITER=..
+		POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+		POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+		#POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+		POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="╭"
+		POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="╰\uF460\uF460\uF460 "
+
+		# Custom segment "now playing"
+		POWERLEVEL9K_CUSTOM_NOW_PLAYING='~/.dotfiles/bin/nowplaying'
+
+		# Colors
+		POWERLEVEL9K_VIRTUALENV_BACKGROUND=107
+		POWERLEVEL9K_VIRTUALENV_FOREGROUND='white'
+		POWERLEVEL9K_CUSTOM_NOW_PLAYING_BACKGROUND='blue'
+		POWERLEVEL9K_CUSTOM_NOW_PLAYING_FOREGROUND='black'
+		POWERLEVEL9K_OS_ICON_BACKGROUND='white'
+		POWERLEVEL9K_OS_ICON_FOREGROUND='black'
+		POWERLEVEL9K_TIME_BACKGROUND='white'
+		POWERLEVEL9K_TIME_FOREGROUND='black'
+
+		# Battery colors
+		POWERLEVEL9K_BATTERY_CHARGING='107'
+		POWERLEVEL9K_BATTERY_CHARGED='blue'
+		POWERLEVEL9K_BATTERY_LOW_THRESHOLD='50'
+		POWERLEVEL9K_BATTERY_LOW_COLOR='red'
+		POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND='blue'
+		POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND='white'
+		POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND='107'
+		POWERLEVEL9K_BATTERY_CHARGING_FOREGROUND='white'
+		POWERLEVEL9K_BATTERY_LOW_BACKGROUND='red'
+		POWERLEVEL9K_BATTERY_LOW_FOREGROUND='white'
+		POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND='white'
+		POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND='214'
+
+		# VCS colors
+		POWERLEVEL9K_VCS_CLEAN_FOREGROUND='cyan'
+		POWERLEVEL9K_VCS_CLEAN_BACKGROUND='black'
+		POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='white'
+		POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='red'
+		POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='black'
+		POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
+
+	else
+		echo '\033[33m[ ! ]\033[0m ZSH powerlevel10k not installed'
+	fi
+else
+	clear
+	echo
+	echo
 fi
 
-# dircolors
 
-if [[ "$(tput colors)" == "256" ]]; then
-    eval $(dircolors =(cat ~/.shell/plugins/dircolors-solarized/dircolors.256dark ~/.shell/dircolors.extra))
-fi
+switch_powerlevel_multiline_prompt(){
+	[ $POWERLEVEL9K_PROMPT_ON_NEWLINE = true ] \
+		&& POWERLEVEL9K_PROMPT_ON_NEWLINE=false \
+		|| POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+
+	zle && zle accept-line
+}
+zle -N switch_powerlevel_multiline_prompt
+bindkey ^P switch_powerlevel_multiline_prompt
