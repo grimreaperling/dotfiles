@@ -1,7 +1,7 @@
 # Plugin source helper
 _source_plugin() {
 	local plugin_name="$1"
-	for basedir in /usr/share/zsh/plugins /usr/share
+	for basedir in ~/.zsh/plugins
 	do
 		plugin="$basedir/$plugin_name/$plugin_name.zsh"
 		[ -f "$plugin" ] && source "$plugin" && return 0
@@ -14,12 +14,12 @@ _source_plugin() {
 _source_plugin zsh-autosuggestions && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
 # Manually load the F-Sy-H
-source /usr/share/zsh/plugins/F-Sy-H/F-Sy-H.plugin.zsh
+source ~/.zsh/plugins/F-Sy-H/F-Sy-H.plugin.zsh
 
 # POWERLEVEL
 if ! [[ $(tty) = /dev/tty* ]]
 then
-	if source /usr/share/zsh/plugins/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme 2> /dev/null
+	if source ~/.zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme 2> /dev/null
 	then
 		# General config
 		POWERLEVEL9K_MODE='nerdfont-complete'
@@ -39,9 +39,6 @@ then
 		#POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 		POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="╭"
 		POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="╰\uF460\uF460\uF460 "
-
-		# Custom segment "now playing"
-		POWERLEVEL9K_CUSTOM_NOW_PLAYING='~/.dotfiles/bin/nowplaying'
 
 		# Colors
 		POWERLEVEL9K_VIRTUALENV_BACKGROUND=107
