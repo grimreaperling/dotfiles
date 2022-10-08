@@ -7,6 +7,14 @@ alias ll='ls -lah'
 alias la='ls -A'
 alias l='ls'
 
+# Aliases for exa
+alias e="exa"
+alias el="exa -l"
+alias elt="exa -l --tree"
+alias ela="exa -l -a"
+alias elat="exa -l -a --tree"
+alias ee="exa -abghHliS"
+
 # Aliases to protect against overwriting
 alias cp='cp -i'
 alias mv='mv -i'
