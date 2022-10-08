@@ -61,7 +61,7 @@ POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
 POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context battery dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context battery dir vcs vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time dir_writable custom_wifi_signal kubecontext ram load background_jobs)
 
 #POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
