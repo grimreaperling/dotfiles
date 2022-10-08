@@ -27,7 +27,7 @@ then
 
 		# Prompts
 		if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-		  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh context dir virtualenv vcs)
+          POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh context dir virtualenv vcs vi_mode)
 		else
 		  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user dir virtualenv vcs)
 		fi
