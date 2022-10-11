@@ -36,6 +36,8 @@
     ~/.tmux.conf.local:
     ~/.vim:
     ~/.vimrc:
+    ~/.config/nvim: SpaceVim
+    ~/.SpaceVim.d:
     ~/.zsh:
     ~/.zshrc:
 
