@@ -1,6 +1,3 @@
-# Source iterm2 integration script
-source ~/.iterm2_shell_integration.zsh
-
 # Functions
 source ~/.shell/functions.sh
 
@@ -19,6 +16,9 @@ source ~/.zsh/plugins_before.zsh
 
 # Settings
 source ~/.zsh/settings.zsh
+
+# Source iterm2 integration script
+source ~/.shell/iterm2.sh
 
 # Bootstrap
 source ~/.shell/bootstrap.sh
