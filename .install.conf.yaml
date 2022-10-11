@@ -33,6 +33,7 @@
     ~/.screenrc:
     ~/.shell:
     ~/.tmux.conf:
+    ~/.tmux.conf.local:
     ~/.vim:
     ~/.vimrc:
     ~/.zsh:
