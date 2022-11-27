@@ -259,3 +259,6 @@
 [submodule "SpaceVim"]
 	path = SpaceVim
 	url = https://github.com/SpaceVim/SpaceVim.git
+[submodule "vim/pack/vendor/start/vim-syntax-extra"]
+	path = vim/pack/vendor/start/vim-syntax-extra
+	url = https://github.com/justinmk/vim-syntax-extra.git
