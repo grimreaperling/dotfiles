@@ -1,0 +1,6 @@
+path_prepend "$HOME/.local/bin"
+path_prepend "$HOME/.dotfiles/bin"
+path_prepend "/usr/local/bin"
+path_prepend "/usr/local/sbin"
+path_prepend "/usr/local/Homebrew/bin"
+path_prepend "$HOME/ocw/stanford/pintos/tools/x86_64/bin"

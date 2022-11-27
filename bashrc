@@ -15,19 +15,16 @@ fi
 source ~/.bash/settings.bash
 
 # Bootstrap
-source ~/.shell/bootstrap.sh
+source ~/.bash/bootstrap.sh
 
 # External settings
 source ~/.shell/external.sh
 
 # Aliases
-source ~/.shell/aliases.sh
+source ~/.bash/aliases.sh
 
 # Custom prompt
 source ~/.bash/prompt.bash
-
-# Plugins
-source ~/.bash/plugins.bash
 
 # Allow local customizations in the ~/.shell_local_after file
 if [ -f ~/.shell_local_after ]; then

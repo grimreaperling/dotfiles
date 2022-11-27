@@ -25,13 +25,36 @@
     enable_statusline_mode = false
     vimcompatible = true
 
+
 # Enable autocomplete layer
 [[layers]]
-name = 'autocomplete'
-auto_completion_return_key_behavior = "complete"
-auto_completion_tab_key_behavior = "smart"
+    name = 'autocomplete'
+    autocomplete_method = "deoplete"
+    auto_completion_return_key_behavior = "smart"
+    auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
-name = 'shell'
-default_position = 'top'
-default_height = 30
+    name = 'shell'
+    default_position = 'top'
+    default_height = 30
+
+[[layers]]
+    name = "lang#python"
+
+[[layers]]
+    name = "lang#c"
+    enable_clang_syntax_highlight = true
+    filetypes = [
+    "c",
+    "cpp"
+    ]
+    [layers.override_cmd]
+      c = ["clangd"]
+
+[[layers]]
+    name = "lang#latex"
+
+[[layers]]
+    name = 'lsp'
+    enabled_clients = ['clangd']
+    enabled_clients = ['pylsp']
