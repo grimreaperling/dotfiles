@@ -212,6 +212,9 @@ let g:markdown_fenced_languages = [
 let g:markdown_syntax_conceal = 0
 let g:markdown_folding = 1
 
+" The syntax highlight for the .c0 file
+au BufEnter *.c0 setf c
+
 " fugitive
 set tags^=.git/tags;~
 
